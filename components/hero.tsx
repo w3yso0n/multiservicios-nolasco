@@ -1,0 +1,66 @@
+import Image from "next/image";
+import { CallButton, WhatsAppButton } from "@/components/ui/button-link";
+import { IMAGE_PATHS, SITE } from "@/lib/site";
+
+export function Hero() {
+  return (
+    <section
+      id="inicio"
+      className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden"
+    >
+      {/* Plano visual full-bleed — en Fase 4 el canvas 3D reemplaza el fallback */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src={IMAGE_PATHS.heroFallback}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-45"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-grafito via-grafito/85 to-grafito/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-grafito via-transparent to-grafito/50" />
+      </div>
+
+      <div className="mx-auto flex min-h-[calc(100svh-4rem)] max-w-6xl flex-col justify-end gap-10 px-6 pb-16 pt-20 sm:px-10 sm:pb-20 lg:justify-center lg:pb-24">
+        <div className="flex max-w-2xl flex-col gap-6">
+          <p className="font-mono text-xs uppercase tracking-[0.24em] text-ambar-taller">
+            Orden de servicio · OS-0001
+          </p>
+
+          <h1 className="font-display text-6xl font-bold uppercase leading-[0.9] tracking-tight text-hueso sm:text-7xl md:text-8xl">
+            {SITE.brand}
+          </h1>
+
+          <p className="max-w-md text-lg leading-relaxed text-hueso/80 sm:text-xl">
+            Diagnóstico honesto, reparación precisa y entrega a tiempo en San
+            Pedro Tlaquepaque.
+          </p>
+
+          <div className="flex flex-wrap gap-3 pt-2">
+            <WhatsAppButton />
+            <CallButton />
+          </div>
+
+          <p className="font-mono text-xs text-acero">
+            {SITE.address.line1} · {SITE.phoneDisplay}
+          </p>
+        </div>
+
+        {/* Reserva visual para la pieza 3D (Fase 4) — no bloquea CTAs */}
+        <div
+          className="pointer-events-none absolute inset-y-20 right-0 hidden w-[42%] lg:block"
+          aria-hidden
+        >
+          <div className="relative h-full w-full">
+            <div className="absolute inset-8 rounded-full border border-acero/20" />
+            <div className="absolute inset-[22%] rounded-full border border-naranja-senal/25" />
+            <p className="absolute bottom-10 right-10 font-mono text-[10px] uppercase tracking-[0.2em] text-acero">
+              Slot 3D · Fase 4
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

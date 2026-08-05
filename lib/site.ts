@@ -1,0 +1,162 @@
+export const SITE = {
+  brand: "Sergio Nolasco",
+  tagline: "Mecánico Automotriz",
+  phoneDisplay: "33 5113 7051",
+  phoneTel: "+523351137051",
+  whatsappUrl: "https://wa.me/523351137051",
+  whatsappE164: "523351137051",
+  address: {
+    line1: "Cam. Real a Agua Amarilla #8223 A",
+    line2: "45613 San Pedro Tlaquepaque, Jal.",
+    full: "Cam. Real a Agua Amarilla #8223 A, 45613 San Pedro Tlaquepaque, Jal.",
+  },
+  /** Placeholder hasta confirmar horario real con el cliente */
+  hours: [
+    { days: "Lun — Vie", time: "9:00 — 19:00" },
+    { days: "Sábado", time: "9:00 — 14:00" },
+    { days: "Domingo", time: "Cerrado" },
+  ],
+  /** Placeholder hasta confirmar años reales */
+  yearsExperience: 15,
+  guarantee: "Garantía escrita en mano de obra",
+  socials: [] as { label: string; href: string }[],
+} as const;
+
+export type ServiceItem = {
+  id: string;
+  title: string;
+  description: string;
+  code: string;
+};
+
+/** Lista provisional — se reemplaza en Fase 5 con la definitiva del cliente */
+export const SERVICES: ServiceItem[] = [
+  {
+    id: "diagnostico",
+    title: "Diagnóstico computarizado",
+    description:
+      "Escaneo OBD-II, lectura de códigos y prueba de sensores antes de abrir el motor.",
+    code: "SVC-01",
+  },
+  {
+    id: "frenos",
+    title: "Frenos y suspensión",
+    description:
+      "Balatas, discos, tambores, amortiguadores y geometría para un frenado firme.",
+    code: "SVC-02",
+  },
+  {
+    id: "motor",
+    title: "Motor y transmisión",
+    description:
+      "Reparación de fugas, empaques, bandas, embrague y mantenimiento de caja.",
+    code: "SVC-03",
+  },
+  {
+    id: "electrico",
+    title: "Sistema eléctrico",
+    description:
+      "Batería, alternador, marcha, faros y cortos — sin adivinar, con multímetro.",
+    code: "SVC-04",
+  },
+  {
+    id: "afinacion",
+    title: "Afinación y mantenimiento",
+    description:
+      "Bujías, filtros, aceite y revisión de fluidos según kilometraje del vehículo.",
+    code: "SVC-05",
+  },
+  {
+    id: "clima",
+    title: "Aire acondicionado",
+    description:
+      "Carga de gas, detección de fugas y compresor para clima que sí enfría.",
+    code: "SVC-06",
+  },
+];
+
+export const TICKER_ITEMS: string[] = [
+  "Diagnóstico OBD",
+  "Frenos",
+  "Suspensión",
+  "Motor",
+  "Transmisión",
+  "Eléctrico",
+  "Afinación",
+  "Aceite y filtros",
+  "Clima / A·C",
+  "Escaneo",
+  "Garantía en mano de obra",
+];
+
+export type Testimonial = {
+  id: string;
+  name: string;
+  vehicle: string;
+  quote: string;
+  order: string;
+};
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    id: "t1",
+    name: "María G.",
+    vehicle: "Nissan Versa 2018",
+    quote:
+      "Llegué con el check engine encendido. En una hora ya tenía el diagnóstico claro y el presupuesto sin rodeos.",
+    order: "OS-2148",
+  },
+  {
+    id: "t2",
+    name: "José R.",
+    vehicle: "Chevrolet Aveo 2015",
+    quote:
+      "Me cambiaron balatas y discos. El carro frenó distinto desde el primer viaje a casa. Precio justo.",
+    order: "OS-2091",
+  },
+  {
+    id: "t3",
+    name: "Ana L.",
+    vehicle: "VW Jetta 2012",
+    quote:
+      "El clima no enfriaba desde meses. Encontraron la fuga, sellaron y cargaron gas. Quedó como nuevo.",
+    order: "OS-2210",
+  },
+  {
+    id: "t4",
+    name: "Carlos M.",
+    vehicle: "Toyota Hilux 2016",
+    quote:
+      "Trabajo limpio y te explican qué hicieron. No intentan venderte piezas que no necesitas.",
+    order: "OS-2187",
+  },
+];
+
+export type BeforeAfterCase = {
+  id: string;
+  title: string;
+  vehicle: string;
+  beforeSrc: string;
+  afterSrc: string;
+  beforeAlt: string;
+  afterAlt: string;
+};
+
+export const BEFORE_AFTER_CASES: BeforeAfterCase[] = [
+  {
+    id: "ba-1",
+    title: "Frenos delanteros",
+    vehicle: "Honda Civic 2014",
+    beforeSrc: "/images/antes-despues/frenos-antes.png",
+    afterSrc: "/images/antes-despues/frenos-despues.png",
+    beforeAlt: "Discos y balatas desgastados antes del servicio",
+    afterAlt: "Discos y balatas nuevos después del servicio",
+  },
+];
+
+export const IMAGE_PATHS = {
+  heroFallback: "/images/hero/fallback.png",
+  confianzaPortrait: "/images/confianza/sergio.png",
+  tallerExterior: "/images/taller/exterior.png",
+  mapPlaceholder: "/images/ubicacion/mapa-placeholder.png",
+} as const;
