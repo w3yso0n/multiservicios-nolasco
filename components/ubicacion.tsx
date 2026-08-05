@@ -39,12 +39,12 @@ export function Ubicacion() {
             </div>
           </dl>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="flex flex-wrap gap-2">
             <a
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center justify-center bg-naranja-senal px-5 font-sans text-sm font-semibold text-grafito"
+              className="inline-flex items-center justify-center bg-naranja-senal px-4 py-2.5 font-sans text-sm font-semibold text-grafito"
             >
               Cómo llegar
             </a>
@@ -52,7 +52,7 @@ export function Ubicacion() {
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center justify-center border border-hueso/30 px-5 font-sans text-sm font-semibold text-hueso"
+              className="inline-flex items-center justify-center border border-hueso/30 px-4 py-2.5 font-sans text-sm font-semibold text-hueso"
             >
               Abrir en Maps
             </a>

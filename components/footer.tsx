@@ -1,11 +1,11 @@
-import Image from "next/image";
 import { SITE, IMAGE_PATHS } from "@/lib/site";
+import Image from "next/image";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-acero/25 bg-grafito px-4 pt-12 pb-28 sm:px-10 sm:py-14 md:pb-14">
+    <footer className="border-t border-acero/25 bg-grafito px-4 py-12 sm:px-10 sm:py-14">
       <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-12 md:gap-10">
         <div className="flex flex-col gap-3 md:col-span-5">
           <Image
@@ -13,7 +13,7 @@ export function Footer() {
             alt={SITE.brand}
             width={220}
             height={48}
-            className="h-9 w-auto sm:h-10"
+            className="h-8 w-auto sm:h-10"
           />
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-acero">
             {SITE.tagline}
@@ -41,27 +41,26 @@ export function Footer() {
           >
             WhatsApp
           </a>
-          {SITE.socials.length === 0 ? null : (
-            SITE.socials.map((social) => (
-              <a
-                key={social.href}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-sans text-sm text-hueso hover:text-naranja-senal"
-              >
-                {social.label}
-              </a>
-            ))
-          )}
+          {SITE.socials.map((social) => (
+            <a
+              key={social.href}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans text-sm text-hueso hover:text-naranja-senal"
+            >
+              {social.label}
+            </a>
+          ))}
         </div>
 
-        <div className="relative aspect-[16/10] overflow-hidden border border-acero/30 md:col-span-4">
+        {/* Fachada solo en desktop — en mobile ya está en Ubicación */}
+        <div className="relative hidden aspect-[16/10] overflow-hidden border border-acero/30 md:col-span-4 md:block">
           <Image
             src={IMAGE_PATHS.tallerExterior}
             alt="Fachada del taller Sergio Nolasco"
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="33vw"
             className="object-cover opacity-80"
           />
           <div className="absolute inset-0 bg-grafito/35" />
