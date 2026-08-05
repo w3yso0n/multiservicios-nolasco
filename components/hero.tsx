@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Hero3D } from "@/components/hero-3d";
 import { HeroTitle } from "@/components/hero-title";
 import { CallButton, WhatsAppButton } from "@/components/ui/button-link";
 import { IMAGE_PATHS, SITE } from "@/lib/site";
@@ -9,7 +10,6 @@ export function Hero() {
       id="inicio"
       className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden"
     >
-      {/* Plano visual full-bleed — en Fase 4 el canvas 3D reemplaza el fallback */}
       <div className="absolute inset-0 -z-10">
         <Image
           src={IMAGE_PATHS.heroFallback}
@@ -23,8 +23,9 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-grafito via-transparent to-grafito/50" />
       </div>
 
-      <div className="mx-auto flex min-h-[calc(100svh-4rem)] max-w-6xl flex-col justify-end gap-10 px-6 pb-16 pt-20 sm:px-10 sm:pb-20 lg:justify-center lg:pb-24">
-        <div className="flex max-w-2xl flex-col gap-6">
+      <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-6xl flex-col justify-end gap-10 px-6 pb-16 pt-20 sm:px-10 sm:pb-20 lg:justify-center lg:pb-24">
+        {/* CTAs y copy primero — nunca dependen del canvas */}
+        <div className="relative z-10 flex max-w-2xl flex-col gap-6">
           <p className="font-mono text-xs uppercase tracking-[0.24em] text-ambar-taller">
             Orden de servicio · OS-0001
           </p>
@@ -46,21 +47,7 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Reserva visual para la pieza 3D (Fase 4) — poster estático mientras tanto */}
-        <div
-          className="pointer-events-none absolute inset-y-16 right-4 hidden w-[40%] lg:block"
-          aria-hidden
-        >
-          <div className="relative mx-auto h-full max-w-md">
-            <Image
-              src={IMAGE_PATHS.heroFallback3d}
-              alt=""
-              fill
-              sizes="40vw"
-              className="object-contain object-center opacity-90"
-            />
-          </div>
-        </div>
+        <Hero3D />
       </div>
     </section>
   );

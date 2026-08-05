@@ -185,3 +185,6 @@ export const IMAGE_PATHS = {
   mapPlaceholder: "/images/ubicacion/mapa-placeholder.png",
   og: "/images/og.jpg",
 } as const;
+
+/** Coloca el GLB exportado (Draco) aquí; el hero lo detecta solo */
+export const MODEL_PATH = "/models/pieza.glb" as const;
