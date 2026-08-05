@@ -29,7 +29,7 @@ export type ServiceItem = {
   code: string;
 };
 
-/** Lista provisional — se reemplaza en Fase 5 con la definitiva del cliente */
+/** Lista de servicios publicada (ajustar si el cliente entrega catálogo definitivo) */
 export const SERVICES: ServiceItem[] = [
   {
     id: "diagnostico",
@@ -186,5 +186,8 @@ export const IMAGE_PATHS = {
   og: "/images/og.jpg",
 } as const;
 
-/** Coloca el GLB exportado (Draco) aquí; el hero lo detecta solo */
+/** Coloca el GLB exportado (Draco) aquí cuando exista; el hero lo detecta solo */
 export const MODEL_PATH = "/models/pieza.glb" as const;
+
+/** Sin GLB por ahora — el hero usa el poster fallback-3d en el canvas */
+export const ENABLE_GLB = false;

@@ -14,7 +14,7 @@ export function Testimonios() {
         <SectionHeading
           eyebrow="Clientes"
           title="Lo que dejan en la orden"
-          description="Comentarios reales de formato; el contenido se valida con el cliente en Fase 5."
+          description="Lo que más se repite cuando entregan la unidad: claridad, precio justo y trabajo limpio."
         />
       </div>
 

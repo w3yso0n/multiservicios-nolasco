@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { useReduced3D } from "@/hooks/use-reduced-3d";
-import { IMAGE_PATHS, MODEL_PATH } from "@/lib/site";
+import { IMAGE_PATHS, MODEL_PATH, ENABLE_GLB } from "@/lib/site";
 
 const HeroCanvas = dynamic(
   () =>
@@ -53,7 +53,7 @@ export function Hero3D() {
   }, [ready, allow3d]);
 
   useEffect(() => {
-    if (!loadCanvas) return;
+    if (!loadCanvas || !ENABLE_GLB) return;
 
     let cancelled = false;
     void fetch(MODEL_PATH, { method: "HEAD" })
