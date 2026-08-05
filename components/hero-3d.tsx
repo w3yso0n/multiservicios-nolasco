@@ -3,6 +3,12 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+} from "motion/react";
+import {
   Component,
   useEffect,
   useRef,
@@ -10,7 +16,7 @@ import {
   type ReactNode,
 } from "react";
 import { useReduced3D } from "@/hooks/use-reduced-3d";
-import { IMAGE_PATHS, MODEL_PATH, ENABLE_GLB } from "@/lib/site";
+import { ENABLE_GLB, IMAGE_PATHS, MODEL_PATH } from "@/lib/site";
 
 const HeroCanvas = dynamic(
   () =>
@@ -21,10 +27,9 @@ const HeroCanvas = dynamic(
 );
 
 /**
- * Slot 3D del hero.
- * - CTAs del hero viven fuera y nunca esperan este módulo.
- * - Canvas se carga con next/dynamic después de montar el resto del hero.
- * - Fallback a imagen si reduced-motion, saveData, error o mientras carga.
+ * Slot visual del hero (poster 1:1 estable).
+ * El canvas WebGL solo entra si ENABLE_GLB y existe el modelo —
+ * así no hay salto de tamaño entre imagen y plano 3D.
  */
 export function Hero3D() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -35,21 +40,17 @@ export function Hero3D() {
   const [canvasReady, setCanvasReady] = useState(false);
   const [failed, setFailed] = useState(false);
 
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const springX = useSpring(rotateX, { stiffness: 120, damping: 18 });
+  const springY = useSpring(rotateY, { stiffness: 120, damping: 18 });
+  const transform = useMotionTemplate`perspective(900px) rotateX(${springX}deg) rotateY(${springY}deg)`;
+
   useEffect(() => {
-    if (!ready || !allow3d) return;
+    if (!ready || !allow3d || !ENABLE_GLB) return;
 
-    let cancelled = false;
-
-    const enable = () => {
-      if (!cancelled) setLoadCanvas(true);
-    };
-
-    const timeoutId = window.setTimeout(enable, 120);
-
-    return () => {
-      cancelled = true;
-      window.clearTimeout(timeoutId);
-    };
+    const timeoutId = window.setTimeout(() => setLoadCanvas(true), 120);
+    return () => window.clearTimeout(timeoutId);
   }, [ready, allow3d]);
 
   useEffect(() => {
@@ -58,13 +59,9 @@ export function Hero3D() {
     let cancelled = false;
     void fetch(MODEL_PATH, { method: "HEAD" })
       .then((response) => {
-        if (!cancelled && response.ok) {
-          setUseGlb(true);
-        }
+        if (!cancelled && response.ok) setUseGlb(true);
       })
-      .catch(() => {
-        /* sin GLB: poster texturizado en el canvas */
-      });
+      .catch(() => undefined);
 
     return () => {
       cancelled = true;
@@ -76,36 +73,52 @@ export function Hero3D() {
     if (!node) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-      },
+      ([entry]) => setInView(entry.isIntersecting),
       { threshold: 0.12, rootMargin: "10% 0px" },
     );
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
-  const showFallbackImage = !allow3d || !canvasReady || failed || !loadCanvas;
+  useEffect(() => {
+    if (!allow3d) return;
+
+    const onMove = (event: PointerEvent) => {
+      const y = (event.clientX / window.innerWidth - 0.5) * 10;
+      const x = (0.5 - event.clientY / window.innerHeight) * 8;
+      rotateX.set(x);
+      rotateY.set(y);
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [allow3d, rotateX, rotateY]);
+
+  const showCanvas = Boolean(
+    loadCanvas && allow3d && useGlb && !failed && ENABLE_GLB,
+  );
 
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none absolute inset-y-12 right-0 hidden w-[46%] lg:block"
+      className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] items-center justify-center lg:flex"
       aria-hidden
     >
-      <div className="relative mx-auto h-full max-w-lg">
-        {showFallbackImage ? (
-          <Image
-            src={IMAGE_PATHS.heroFallback3d}
-            alt=""
-            fill
-            sizes="40vw"
-            className="object-contain object-center opacity-90"
-            priority
-          />
-        ) : null}
+      <motion.div
+        className="relative aspect-square w-[min(100%,28rem)] shrink-0"
+        style={allow3d ? { transform } : undefined}
+      >
+        <Image
+          src={IMAGE_PATHS.heroFallback3d}
+          alt=""
+          width={1024}
+          height={1024}
+          sizes="(min-width: 1024px) 28rem, 0px"
+          className="h-full w-full object-contain"
+          priority
+        />
 
-        {loadCanvas && allow3d && !failed ? (
+        {showCanvas ? (
           <div
             className={`absolute inset-0 transition-opacity duration-500 ${
               canvasReady ? "opacity-100" : "opacity-0"
@@ -113,14 +126,14 @@ export function Hero3D() {
           >
             <HeroCanvasErrorBoundary onError={() => setFailed(true)}>
               <HeroCanvas
-                useGlb={useGlb}
+                useGlb
                 inView={inView}
                 onReady={() => setCanvasReady(true)}
               />
             </HeroCanvasErrorBoundary>
           </div>
         ) : null}
-      </div>
+      </motion.div>
     </div>
   );
 }
