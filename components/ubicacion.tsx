@@ -51,16 +51,16 @@ export function Ubicacion() {
 
         <div className="relative aspect-[4/3] overflow-hidden border border-acero/30 bg-concreto lg:col-span-7 lg:aspect-auto lg:min-h-[28rem]">
           <Image
-            src={IMAGE_PATHS.mapPlaceholder}
-            alt={`Mapa de ubicación: ${SITE.address.full}`}
+            src={IMAGE_PATHS.tallerExterior}
+            alt={`Fachada del taller — ${SITE.address.full}`}
             fill
             sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-cover opacity-80"
+            className="object-cover opacity-90"
           />
-          <div className="absolute inset-0 bg-grafito/30" />
+          <div className="absolute inset-0 bg-grafito/25" />
           <div className="absolute bottom-4 left-4 right-4 border border-acero/40 bg-grafito/90 p-4 backdrop-blur-sm">
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ambar-taller">
-              Mapbox · pendiente de token
+              Ubicación · Tlaquepaque
             </p>
             <p className="mt-1 font-sans text-sm text-hueso">
               {SITE.address.line1}

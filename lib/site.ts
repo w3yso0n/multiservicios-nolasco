@@ -144,19 +144,44 @@ export type BeforeAfterCase = {
 
 export const BEFORE_AFTER_CASES: BeforeAfterCase[] = [
   {
-    id: "ba-1",
+    id: "frenos",
     title: "Frenos delanteros",
     vehicle: "Honda Civic 2014",
     beforeSrc: "/images/antes-despues/frenos-antes.png",
     afterSrc: "/images/antes-despues/frenos-despues.png",
-    beforeAlt: "Discos y balatas desgastados antes del servicio",
-    afterAlt: "Discos y balatas nuevos después del servicio",
+    beforeAlt:
+      "Disco y caliper desgastados con polvo de freno antes del servicio",
+    afterAlt: "Disco y balatas nuevos después del servicio de frenos",
+  },
+  {
+    id: "motor",
+    title: "Motor · limpieza y sellado",
+    vehicle: "Nissan Sentra 2016",
+    beforeSrc: "/images/antes-despues/motor-antes.png",
+    afterSrc: "/images/antes-despues/motor-despues.png",
+    beforeAlt:
+      "Bay del motor con polvo, grasa y fugas de aceite antes del servicio",
+    afterAlt: "Bay del motor limpio y sellado después del servicio",
+  },
+  {
+    id: "clima",
+    title: "Clima / A·C",
+    vehicle: "VW Jetta 2012",
+    beforeSrc: "/images/antes-despues/clima-antes.png",
+    afterSrc: "/images/antes-despues/clima-despues.png",
+    beforeAlt:
+      "Compresor de aire acondicionado sucio y desgastado antes del servicio",
+    afterAlt:
+      "Compresor de aire acondicionado nuevo instalado después del servicio",
   },
 ];
 
 export const IMAGE_PATHS = {
+  logo: "/images/brand/logo.png",
   heroFallback: "/images/hero/fallback.png",
+  heroFallback3d: "/images/hero/fallback-3d.png",
   confianzaPortrait: "/images/confianza/sergio.png",
   tallerExterior: "/images/taller/exterior.png",
   mapPlaceholder: "/images/ubicacion/mapa-placeholder.png",
+  og: "/images/og.jpg",
 } as const;

@@ -8,9 +8,13 @@ export function Footer() {
     <footer className="border-t border-acero/25 bg-grafito px-6 py-14 sm:px-10">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
         <div className="flex flex-col gap-3 md:col-span-5">
-          <p className="font-display text-3xl font-bold uppercase tracking-tight text-hueso">
-            {SITE.brand}
-          </p>
+          <Image
+            src={IMAGE_PATHS.logo}
+            alt={SITE.brand}
+            width={220}
+            height={48}
+            className="h-10 w-auto"
+          />
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-acero">
             {SITE.tagline}
           </p>
@@ -58,15 +62,15 @@ export function Footer() {
 
         <div className="relative aspect-[16/10] overflow-hidden border border-acero/30 md:col-span-4">
           <Image
-            src={IMAGE_PATHS.mapPlaceholder}
-            alt="Vista de ubicación del taller"
+            src={IMAGE_PATHS.tallerExterior}
+            alt="Fachada del taller Sergio Nolasco"
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover opacity-70"
+            className="object-cover opacity-80"
           />
-          <div className="absolute inset-0 bg-grafito/40" />
+          <div className="absolute inset-0 bg-grafito/35" />
           <p className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.16em] text-hueso">
-            Mini mapa
+            Tlaquepaque
           </p>
         </div>
       </div>

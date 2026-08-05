@@ -47,17 +47,19 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Reserva visual para la pieza 3D (Fase 4) — no bloquea CTAs */}
+        {/* Reserva visual para la pieza 3D (Fase 4) — poster estático mientras tanto */}
         <div
-          className="pointer-events-none absolute inset-y-20 right-0 hidden w-[42%] lg:block"
+          className="pointer-events-none absolute inset-y-16 right-4 hidden w-[40%] lg:block"
           aria-hidden
         >
-          <div className="relative h-full w-full">
-            <div className="absolute inset-8 rounded-full border border-acero/20" />
-            <div className="absolute inset-[22%] rounded-full border border-naranja-senal/25" />
-            <p className="absolute bottom-10 right-10 font-mono text-[10px] uppercase tracking-[0.2em] text-acero">
-              Slot 3D · Fase 4
-            </p>
+          <div className="relative mx-auto h-full max-w-md">
+            <Image
+              src={IMAGE_PATHS.heroFallback3d}
+              alt=""
+              fill
+              sizes="40vw"
+              className="object-contain object-center opacity-90"
+            />
           </div>
         </div>
       </div>

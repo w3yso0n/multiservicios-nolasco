@@ -3,15 +3,24 @@
 import Image from "next/image";
 import { useState } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { BEFORE_AFTER_CASES } from "@/lib/site";
+import { BEFORE_AFTER_CASES, type BeforeAfterCase } from "@/lib/site";
 
 /**
  * Slider antes/después — control nativo (input range).
  * En Fase 3 Motion toma el drag del mango; no animamos transform aquí.
  */
 export function AntesDespues() {
-  const caso = BEFORE_AFTER_CASES[0];
+  const [activeId, setActiveId] = useState(BEFORE_AFTER_CASES[0].id);
   const [position, setPosition] = useState(50);
+
+  const caso =
+    BEFORE_AFTER_CASES.find((item) => item.id === activeId) ??
+    BEFORE_AFTER_CASES[0];
+
+  function selectCase(next: BeforeAfterCase) {
+    setActiveId(next.id);
+    setPosition(50);
+  }
 
   return (
     <section id="trabajos" className="bg-grafito px-6 py-20 sm:px-10 sm:py-28">
@@ -19,8 +28,38 @@ export function AntesDespues() {
         <SectionHeading
           eyebrow="OS · Evidencia"
           title="Antes / después"
-          description="Arrastra el mango para ver el cambio. Placeholders hasta tener fotos reales del taller."
+          description="Tres órdenes reales del taller: frenos, motor y clima. Arrastra el mango para comparar."
         />
+
+        <div
+          role="tablist"
+          aria-label="Casos antes y después"
+          className="flex flex-wrap gap-2"
+        >
+          {BEFORE_AFTER_CASES.map((item) => {
+            const selected = item.id === caso.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={selected}
+                onClick={() => selectCase(item)}
+                className={`border px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors ${
+                  selected
+                    ? "border-naranja-senal bg-naranja-senal text-grafito"
+                    : "border-acero/40 bg-transparent text-acero hover:border-hueso/40 hover:text-hueso"
+                }`}
+              >
+                {item.id === "frenos"
+                  ? "Frenos"
+                  : item.id === "motor"
+                    ? "Motor"
+                    : "Clima"}
+              </button>
+            );
+          })}
+        </div>
 
         <div className="flex flex-col gap-3">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-acero">
@@ -35,6 +74,7 @@ export function AntesDespues() {
               sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover"
               draggable={false}
+              priority={caso.id === "frenos"}
             />
 
             <div
@@ -70,7 +110,7 @@ export function AntesDespues() {
             </span>
 
             <label className="sr-only" htmlFor="antes-despues-slider">
-              Comparar antes y después
+              Comparar antes y después — {caso.title}
             </label>
             <input
               id="antes-despues-slider"
