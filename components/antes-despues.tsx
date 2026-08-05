@@ -78,18 +78,18 @@ export function AntesDespues() {
   });
 
   return (
-    <section id="trabajos" className="bg-grafito px-6 py-20 sm:px-10 sm:py-28">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10">
+    <section id="trabajos" className="bg-grafito px-4 py-14 sm:px-10 sm:py-28">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 sm:gap-10">
         <SectionHeading
           eyebrow="Trabajos"
           title="Antes / después"
-          description="Tres órdenes del taller: frenos, motor y clima. Arrastra el mango para comparar."
+          description="Frenos, motor y clima. Desliza el mango para comparar."
         />
 
         <div
           role="tablist"
           aria-label="Casos antes y después"
-          className="flex flex-wrap gap-2"
+          className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {BEFORE_AFTER_CASES.map((item) => {
             const selected = item.id === caso.id;
@@ -102,7 +102,7 @@ export function AntesDespues() {
                 onClick={() => selectCase(item)}
                 whileHover={{ y: -1 }}
                 whileTap={{ scale: 0.98 }}
-                className={`border px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors ${
+                className={`shrink-0 border px-4 py-2.5 font-mono text-xs uppercase tracking-[0.16em] transition-colors ${
                   selected
                     ? "border-naranja-senal bg-naranja-senal text-grafito"
                     : "border-acero/40 bg-transparent text-acero hover:border-hueso/40 hover:text-hueso"
@@ -125,7 +125,7 @@ export function AntesDespues() {
 
           <div
             ref={trackCallbackRef}
-            className="relative aspect-[16/10] w-full overflow-hidden bg-concreto select-none touch-none"
+            className="relative aspect-[4/3] w-full overflow-hidden bg-concreto touch-none select-none sm:aspect-[16/10]"
             onPointerDown={(event) => {
               if ((event.target as HTMLElement).closest("[data-handle]")) {
                 return;
@@ -171,7 +171,7 @@ export function AntesDespues() {
               className="absolute top-0 bottom-0 left-0 z-20 w-0.5 cursor-ew-resize bg-naranja-senal"
               aria-hidden
             >
-              <div className="absolute top-1/2 left-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-naranja-senal bg-grafito text-naranja-senal shadow-[0_0_0_4px_rgba(23,22,19,0.45)]">
+              <div className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-naranja-senal bg-grafito text-naranja-senal shadow-[0_0_0_4px_rgba(23,22,19,0.45)] sm:h-11 sm:w-11">
                 <span className="font-mono text-xs">↔</span>
               </div>
             </motion.div>

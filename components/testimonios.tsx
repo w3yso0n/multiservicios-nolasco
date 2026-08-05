@@ -1,16 +1,10 @@
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TESTIMONIALS } from "@/lib/site";
 
-/**
- * Testimonios en franja horizontal estática.
- * En Fase 3 se convierte en marquee con Motion/GSAP.
- */
 export function Testimonios() {
-  const row = [...TESTIMONIALS, ...TESTIMONIALS];
-
   return (
-    <section id="opiniones" className="bg-concreto py-20 sm:py-28">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 sm:px-10">
+    <section id="opiniones" className="bg-concreto py-14 sm:py-28">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-10">
         <SectionHeading
           eyebrow="Clientes"
           title="Lo que dicen de nosotros"
@@ -18,12 +12,12 @@ export function Testimonios() {
         />
       </div>
 
-      <div className="mt-4 overflow-x-auto pb-2">
-        <ul className="flex w-max gap-6 px-6 sm:gap-8 sm:px-10">
-          {row.map((item, index) => (
+      <div className="mt-2 overflow-x-auto overscroll-x-contain pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <ul className="flex w-max snap-x snap-mandatory gap-4 px-4 sm:gap-8 sm:px-10">
+          {TESTIMONIALS.map((item) => (
             <li
-              key={`${item.id}-${index}`}
-              className="flex w-[min(85vw,22rem)] shrink-0 flex-col gap-5 border border-acero/30 bg-grafito p-6 sm:w-96 sm:p-8"
+              key={item.id}
+              className="flex w-[min(88vw,20rem)] shrink-0 snap-start flex-col gap-5 border border-acero/30 bg-grafito p-5 sm:w-96 sm:p-8"
             >
               <blockquote className="text-base leading-relaxed text-hueso sm:text-lg">
                 “{item.quote}”

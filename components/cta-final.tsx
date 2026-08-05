@@ -5,26 +5,26 @@ export function CtaFinal() {
   return (
     <section
       id="contacto"
-      className="relative overflow-hidden bg-concreto px-6 py-24 sm:px-10 sm:py-32"
+      className="relative overflow-hidden bg-concreto px-4 py-16 sm:px-10 sm:py-32"
     >
       <div
         className="pointer-events-none absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-naranja-senal/15 blur-3xl"
         aria-hidden
       />
-      <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-8">
-        <p className="font-mono text-xs uppercase tracking-[0.22em] text-ambar-taller">
-          Agenda tu orden
+      <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 sm:gap-8">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ambar-taller sm:text-xs sm:tracking-[0.22em]">
+          Agenda tu cita
         </p>
-        <h2 className="max-w-3xl font-display text-5xl font-bold uppercase leading-[0.92] tracking-tight text-hueso sm:text-6xl md:text-7xl">
+        <h2 className="max-w-3xl font-display text-4xl font-bold uppercase leading-[0.92] tracking-tight text-hueso sm:text-6xl md:text-7xl">
           Tu auto no espera. Nosotros tampoco.
         </h2>
-        <p className="max-w-lg text-lg text-acero">
+        <p className="max-w-lg text-base text-acero sm:text-lg">
           Mándanos un WhatsApp con el modelo, el síntoma y tu disponibilidad.
           Te respondemos con el siguiente espacio libre.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <WhatsAppButton />
-          <CallButton />
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+          <WhatsAppButton className="min-h-12 w-full sm:w-auto" />
+          <CallButton className="min-h-12 w-full sm:w-auto" shortLabel />
         </div>
         <p className="font-mono text-xs text-acero">{SITE.phoneDisplay}</p>
       </div>

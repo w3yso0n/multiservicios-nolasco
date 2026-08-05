@@ -13,11 +13,11 @@ export function ServiciosTicker() {
       className="border-y border-acero/25 bg-concreto"
     >
       <div className="overflow-hidden py-4">
-        <ul className="ticker-track flex w-max gap-8 px-6 sm:gap-12 sm:px-10">
+        <ul className="ticker-track flex w-max gap-6 px-4 sm:gap-12 sm:px-10">
           {row.map((item, index) => (
             <li
               key={`${item}-${index}`}
-              className="flex shrink-0 items-center gap-8 font-display text-2xl uppercase tracking-wide text-hueso sm:gap-12 sm:text-3xl"
+              className="flex shrink-0 items-center gap-6 font-display text-xl uppercase tracking-wide text-hueso sm:gap-12 sm:text-3xl"
             >
               <span>{item}</span>
               <span

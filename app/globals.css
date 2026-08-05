@@ -28,6 +28,7 @@
     background-color: var(--color-grafito);
     color: var(--color-hueso);
     font-family: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
   }
 
   ::selection {

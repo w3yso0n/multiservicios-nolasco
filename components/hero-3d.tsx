@@ -28,8 +28,7 @@ const HeroCanvas = dynamic(
 
 /**
  * Slot visual del hero (poster 1:1 estable).
- * El canvas WebGL solo entra si ENABLE_GLB y existe el modelo —
- * así no hay salto de tamaño entre imagen y plano 3D.
+ * Visible en mobile (apilado) y desktop (lateral).
  */
 export function Hero3D() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -101,11 +100,11 @@ export function Hero3D() {
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] items-center justify-center lg:flex"
+      className="pointer-events-none relative mx-auto w-full max-w-[14rem] sm:max-w-[16rem] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:flex lg:max-w-none lg:w-[46%] lg:items-center lg:justify-center"
       aria-hidden
     >
       <motion.div
-        className="relative aspect-square w-[min(100%,28rem)] shrink-0"
+        className="relative mx-auto aspect-square w-full lg:w-[min(100%,28rem)]"
         style={allow3d ? { transform } : undefined}
       >
         <Image
@@ -113,7 +112,7 @@ export function Hero3D() {
           alt=""
           width={1024}
           height={1024}
-          sizes="(min-width: 1024px) 28rem, 0px"
+          sizes="(min-width: 1024px) 28rem, 14rem"
           className="h-full w-full object-contain"
           priority
         />

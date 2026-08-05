@@ -39,14 +39,20 @@ export function ButtonLink({
   );
 }
 
-export function CallButton({ className = "" }: { className?: string }) {
+export function CallButton({
+  className = "",
+  shortLabel = false,
+}: {
+  className?: string;
+  shortLabel?: boolean;
+}) {
   return (
     <ButtonLink
       href={`tel:${SITE.phoneTel}`}
       variant="secondary"
       className={className}
     >
-      Llamar {SITE.phoneDisplay}
+      {shortLabel ? "Llamar" : `Llamar ${SITE.phoneDisplay}`}
     </ButtonLink>
   );
 }

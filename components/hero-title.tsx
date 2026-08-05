@@ -60,7 +60,7 @@ export function HeroTitle() {
   return (
     <h1
       ref={rootRef}
-      className="font-display text-6xl font-bold uppercase leading-[0.9] tracking-tight text-hueso sm:text-7xl md:text-8xl"
+      className="font-display text-[2.75rem] font-bold uppercase leading-[0.9] tracking-tight text-hueso sm:text-7xl md:text-8xl"
       style={{ perspective: 600 }}
     >
       {SITE.brand}

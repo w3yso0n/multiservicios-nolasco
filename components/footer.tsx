@@ -5,20 +5,20 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-acero/25 bg-grafito px-6 py-14 sm:px-10">
-      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+    <footer className="border-t border-acero/25 bg-grafito px-4 pt-12 pb-28 sm:px-10 sm:py-14 md:pb-14">
+      <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-12 md:gap-10">
         <div className="flex flex-col gap-3 md:col-span-5">
           <Image
             src={IMAGE_PATHS.logo}
             alt={SITE.brand}
             width={220}
             height={48}
-            className="h-10 w-auto"
+            className="h-9 w-auto sm:h-10"
           />
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-acero">
             {SITE.tagline}
           </p>
-          <p className="mt-2 max-w-sm text-sm leading-relaxed text-acero">
+          <p className="mt-1 max-w-sm text-sm leading-relaxed text-acero">
             {SITE.address.full}
           </p>
         </div>
@@ -41,11 +41,7 @@ export function Footer() {
           >
             WhatsApp
           </a>
-          {SITE.socials.length === 0 ? (
-            <p className="font-mono text-xs text-acero">
-              Redes · por confirmar
-            </p>
-          ) : (
+          {SITE.socials.length === 0 ? null : (
             SITE.socials.map((social) => (
               <a
                 key={social.href}
@@ -75,7 +71,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-6xl flex-col gap-2 border-t border-acero/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-2 border-t border-acero/20 pt-6 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-mono text-xs text-acero">
           © {year} {SITE.brand}
         </p>

@@ -4,6 +4,7 @@ import { CtaFinal } from "@/components/cta-final";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { MobileCtaBar } from "@/components/mobile-cta-bar";
 import { ProcesoDivider } from "@/components/proceso-divider";
 import { Servicios } from "@/components/servicios";
 import { ServiciosTicker } from "@/components/servicios-ticker";
@@ -28,6 +29,7 @@ export default function Home() {
         <CtaFinal />
       </main>
       <Footer />
+      <MobileCtaBar />
     </>
   );
 }
