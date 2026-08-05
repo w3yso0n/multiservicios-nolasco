@@ -1,8 +1,8 @@
 import { TICKER_ITEMS } from "@/lib/site";
 
 /**
- * Letrero de taller — versión estática (sin motion).
- * En Fase 3 se anima como marquee continuo.
+ * Letrero de taller — marquee CSS (transform).
+ * GSAP/Motion no tocan este nodo para no pelear por transform.
  */
 export function ServiciosTicker() {
   const row = [...TICKER_ITEMS, ...TICKER_ITEMS];
@@ -13,7 +13,7 @@ export function ServiciosTicker() {
       className="border-y border-acero/25 bg-concreto"
     >
       <div className="overflow-hidden py-4">
-        <ul className="flex w-max gap-8 px-6 sm:gap-12 sm:px-10">
+        <ul className="ticker-track flex w-max gap-8 px-6 sm:gap-12 sm:px-10">
           {row.map((item, index) => (
             <li
               key={`${item}-${index}`}

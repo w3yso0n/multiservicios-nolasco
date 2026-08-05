@@ -1,26 +1,81 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useTransform,
+} from "motion/react";
+import { useCallback, useRef, useState } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { BEFORE_AFTER_CASES, type BeforeAfterCase } from "@/lib/site";
 
 /**
- * Slider antes/después — control nativo (input range).
- * En Fase 3 Motion toma el drag del mango; no animamos transform aquí.
+ * Antes/después — Motion es dueño del drag (x) y hover scale del mango.
+ * GSAP no anima este componente.
  */
 export function AntesDespues() {
   const [activeId, setActiveId] = useState(BEFORE_AFTER_CASES[0].id);
   const [position, setPosition] = useState(50);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const initializedRef = useRef(false);
 
   const caso =
     BEFORE_AFTER_CASES.find((item) => item.id === activeId) ??
     BEFORE_AFTER_CASES[0];
 
+  const syncXFromPercent = useCallback(
+    (percent: number) => {
+      const track = trackRef.current;
+      if (!track || track.offsetWidth === 0) return;
+      x.set((percent / 100) * track.offsetWidth);
+    },
+    [x],
+  );
+
+  const trackCallbackRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      trackRef.current = node;
+      if (node && !initializedRef.current) {
+        initializedRef.current = true;
+        syncXFromPercent(50);
+      }
+    },
+    [syncXFromPercent],
+  );
+
+  useMotionValueEvent(x, "change", (latest) => {
+    const track = trackRef.current;
+    if (!track || track.offsetWidth === 0) return;
+    const next = Math.min(
+      100,
+      Math.max(0, (latest / track.offsetWidth) * 100),
+    );
+    setPosition(next);
+  });
+
   function selectCase(next: BeforeAfterCase) {
     setActiveId(next.id);
     setPosition(50);
+    requestAnimationFrame(() => syncXFromPercent(50));
   }
+
+  function onTrackPointer(clientX: number) {
+    const track = trackRef.current;
+    if (!track) return;
+    const rect = track.getBoundingClientRect();
+    const next = Math.min(rect.width, Math.max(0, clientX - rect.left));
+    x.set(next);
+  }
+
+  const clipRight = useTransform(x, (latest) => {
+    const track = trackRef.current;
+    if (!track || track.offsetWidth === 0) return "inset(0 50% 0 0)";
+    const percent = (latest / track.offsetWidth) * 100;
+    return `inset(0 ${100 - percent}% 0 0)`;
+  });
 
   return (
     <section id="trabajos" className="bg-grafito px-6 py-20 sm:px-10 sm:py-28">
@@ -28,7 +83,7 @@ export function AntesDespues() {
         <SectionHeading
           eyebrow="OS · Evidencia"
           title="Antes / después"
-          description="Tres órdenes reales del taller: frenos, motor y clima. Arrastra el mango para comparar."
+          description="Tres órdenes del taller: frenos, motor y clima. Arrastra el mango para comparar."
         />
 
         <div
@@ -39,12 +94,14 @@ export function AntesDespues() {
           {BEFORE_AFTER_CASES.map((item) => {
             const selected = item.id === caso.id;
             return (
-              <button
+              <motion.button
                 key={item.id}
                 type="button"
                 role="tab"
                 aria-selected={selected}
                 onClick={() => selectCase(item)}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
                 className={`border px-4 py-2 font-mono text-xs uppercase tracking-[0.16em] transition-colors ${
                   selected
                     ? "border-naranja-senal bg-naranja-senal text-grafito"
@@ -56,7 +113,7 @@ export function AntesDespues() {
                   : item.id === "motor"
                     ? "Motor"
                     : "Clima"}
-              </button>
+              </motion.button>
             );
           })}
         </div>
@@ -66,7 +123,16 @@ export function AntesDespues() {
             {caso.vehicle} · {caso.title}
           </p>
 
-          <div className="relative aspect-[16/10] w-full overflow-hidden bg-concreto select-none">
+          <div
+            ref={trackCallbackRef}
+            className="relative aspect-[16/10] w-full overflow-hidden bg-concreto select-none touch-none"
+            onPointerDown={(event) => {
+              if ((event.target as HTMLElement).closest("[data-handle]")) {
+                return;
+              }
+              onTrackPointer(event.clientX);
+            }}
+          >
             <Image
               src={caso.afterSrc}
               alt={caso.afterAlt}
@@ -77,35 +143,43 @@ export function AntesDespues() {
               priority={caso.id === "frenos"}
             />
 
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+            <motion.div
+              className="absolute inset-0"
+              style={{ clipPath: clipRight }}
             >
-              <Image
-                src={caso.beforeSrc}
-                alt={caso.beforeAlt}
-                fill
-                sizes="(max-width: 1152px) 100vw, 1152px"
-                className="object-cover"
-                draggable={false}
-              />
-            </div>
-
-            <div
-              className="pointer-events-none absolute inset-y-0 w-0.5 bg-naranja-senal"
-              style={{ left: `${position}%` }}
-            >
-              <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-naranja-senal bg-grafito text-naranja-senal">
-                <span className="font-mono text-xs" aria-hidden>
-                  ↔
-                </span>
+              <div className="absolute inset-0 overflow-hidden">
+                <Image
+                  src={caso.beforeSrc}
+                  alt={caso.beforeAlt}
+                  fill
+                  sizes="(max-width: 1152px) 100vw, 1152px"
+                  className="object-cover"
+                  draggable={false}
+                />
               </div>
-            </div>
+            </motion.div>
 
-            <span className="absolute top-4 left-4 bg-grafito/80 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-hueso">
+            <motion.div
+              data-handle
+              drag="x"
+              dragConstraints={trackRef}
+              dragElastic={0}
+              dragMomentum={false}
+              style={{ x }}
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.98 }}
+              className="absolute top-0 bottom-0 left-0 z-20 w-0.5 cursor-ew-resize bg-naranja-senal"
+              aria-hidden
+            >
+              <div className="absolute top-1/2 left-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-naranja-senal bg-grafito text-naranja-senal shadow-[0_0_0_4px_rgba(23,22,19,0.45)]">
+                <span className="font-mono text-xs">↔</span>
+              </div>
+            </motion.div>
+
+            <span className="pointer-events-none absolute top-4 left-4 z-10 bg-grafito/80 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-hueso">
               Antes
             </span>
-            <span className="absolute top-4 right-4 bg-grafito/80 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-hueso">
+            <span className="pointer-events-none absolute top-4 right-4 z-10 bg-grafito/80 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-hueso">
               Después
             </span>
 
@@ -118,8 +192,12 @@ export function AntesDespues() {
               min={0}
               max={100}
               value={position}
-              onChange={(event) => setPosition(Number(event.target.value))}
-              className="absolute inset-0 z-10 h-full w-full cursor-ew-resize opacity-0"
+              onChange={(event) => {
+                const next = Number(event.target.value);
+                setPosition(next);
+                syncXFromPercent(next);
+              }}
+              className="sr-only"
             />
           </div>
         </div>

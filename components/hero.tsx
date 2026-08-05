@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { HeroTitle } from "@/components/hero-title";
 import { CallButton, WhatsAppButton } from "@/components/ui/button-link";
 import { IMAGE_PATHS, SITE } from "@/lib/site";
 
@@ -28,9 +29,7 @@ export function Hero() {
             Orden de servicio · OS-0001
           </p>
 
-          <h1 className="font-display text-6xl font-bold uppercase leading-[0.9] tracking-tight text-hueso sm:text-7xl md:text-8xl">
-            {SITE.brand}
-          </h1>
+          <HeroTitle />
 
           <p className="max-w-md text-lg leading-relaxed text-hueso/80 sm:text-xl">
             Diagnóstico honesto, reparación precisa y entrega a tiempo en San

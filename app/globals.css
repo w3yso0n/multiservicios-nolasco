@@ -20,7 +20,8 @@
 @layer base {
   html {
     color-scheme: dark;
-    scroll-behavior: smooth;
+    /* Lenis maneja el smooth scroll; native smooth pelearía con él */
+    scroll-behavior: auto;
   }
 
   body {
@@ -30,7 +31,44 @@
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--color-naranja-senal) 80%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-naranja-senal) 80%,
+      transparent
+    );
     color: var(--color-grafito);
+  }
+
+  .hero-char {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  .hero-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ticker-track {
+  animation: ticker-scroll 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+
+  .hero-char {
+    will-change: auto;
   }
 }
