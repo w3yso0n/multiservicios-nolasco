@@ -26,7 +26,6 @@ export type ServiceItem = {
   id: string;
   title: string;
   description: string;
-  code: string;
 };
 
 /** Lista de servicios publicada (ajustar si el cliente entrega catálogo definitivo) */
@@ -36,42 +35,36 @@ export const SERVICES: ServiceItem[] = [
     title: "Diagnóstico computarizado",
     description:
       "Escaneo OBD-II, lectura de códigos y prueba de sensores antes de abrir el motor.",
-    code: "SVC-01",
   },
   {
     id: "frenos",
     title: "Frenos y suspensión",
     description:
       "Balatas, discos, tambores, amortiguadores y geometría para un frenado firme.",
-    code: "SVC-02",
   },
   {
     id: "motor",
     title: "Motor y transmisión",
     description:
       "Reparación de fugas, empaques, bandas, embrague y mantenimiento de caja.",
-    code: "SVC-03",
   },
   {
     id: "electrico",
     title: "Sistema eléctrico",
     description:
       "Batería, alternador, marcha, faros y cortos — sin adivinar, con multímetro.",
-    code: "SVC-04",
   },
   {
     id: "afinacion",
     title: "Afinación y mantenimiento",
     description:
       "Bujías, filtros, aceite y revisión de fluidos según kilometraje del vehículo.",
-    code: "SVC-05",
   },
   {
     id: "clima",
     title: "Aire acondicionado",
     description:
       "Carga de gas, detección de fugas y compresor para clima que sí enfría.",
-    code: "SVC-06",
   },
 ];
 
@@ -94,7 +87,6 @@ export type Testimonial = {
   name: string;
   vehicle: string;
   quote: string;
-  order: string;
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -104,7 +96,6 @@ export const TESTIMONIALS: Testimonial[] = [
     vehicle: "Nissan Versa 2018",
     quote:
       "Llegué con el check engine encendido. En una hora ya tenía el diagnóstico claro y el presupuesto sin rodeos.",
-    order: "OS-2148",
   },
   {
     id: "t2",
@@ -112,7 +103,6 @@ export const TESTIMONIALS: Testimonial[] = [
     vehicle: "Chevrolet Aveo 2015",
     quote:
       "Me cambiaron balatas y discos. El carro frenó distinto desde el primer viaje a casa. Precio justo.",
-    order: "OS-2091",
   },
   {
     id: "t3",
@@ -120,7 +110,6 @@ export const TESTIMONIALS: Testimonial[] = [
     vehicle: "VW Jetta 2012",
     quote:
       "El clima no enfriaba desde meses. Encontraron la fuga, sellaron y cargaron gas. Quedó como nuevo.",
-    order: "OS-2210",
   },
   {
     id: "t4",
@@ -128,7 +117,6 @@ export const TESTIMONIALS: Testimonial[] = [
     vehicle: "Toyota Hilux 2016",
     quote:
       "Trabajo limpio y te explican qué hicieron. No intentan venderte piezas que no necesitas.",
-    order: "OS-2187",
   },
 ];
 

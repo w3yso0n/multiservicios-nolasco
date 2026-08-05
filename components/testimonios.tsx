@@ -13,8 +13,8 @@ export function Testimonios() {
       <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 sm:px-10">
         <SectionHeading
           eyebrow="Clientes"
-          title="Lo que dejan en la orden"
-          description="Lo que más se repite cuando entregan la unidad: claridad, precio justo y trabajo limpio."
+          title="Lo que dicen de nosotros"
+          description="Lo que más se repite: claridad, precio justo y trabajo limpio."
         />
       </div>
 
@@ -25,9 +25,6 @@ export function Testimonios() {
               key={`${item.id}-${index}`}
               className="flex w-[min(85vw,22rem)] shrink-0 flex-col gap-5 border border-acero/30 bg-grafito p-6 sm:w-96 sm:p-8"
             >
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ambar-taller">
-                {item.order}
-              </p>
               <blockquote className="text-base leading-relaxed text-hueso sm:text-lg">
                 “{item.quote}”
               </blockquote>

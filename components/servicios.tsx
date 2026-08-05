@@ -7,7 +7,7 @@ export function Servicios() {
     <section id="servicios" className="bg-grafito px-6 py-20 sm:px-10 sm:py-28">
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
         <SectionHeading
-          eyebrow="SVC · Catálogo"
+          eyebrow="Servicios"
           title="Servicios del taller"
           description="De diagnóstico a entrega: trabajo medible, piezas claras y sin sorpresas en la cuenta."
         />
@@ -26,9 +26,6 @@ export function Servicios() {
                 <div className="flex items-start justify-between gap-4">
                   <span className="text-naranja-senal">
                     <Icon className="h-8 w-8" />
-                  </span>
-                  <span className="font-mono text-xs text-acero">
-                    {service.code}
                   </span>
                 </div>
                 <h3 className="font-display text-2xl uppercase leading-none tracking-tight text-hueso">

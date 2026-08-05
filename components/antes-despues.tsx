@@ -81,7 +81,7 @@ export function AntesDespues() {
     <section id="trabajos" className="bg-grafito px-6 py-20 sm:px-10 sm:py-28">
       <div className="mx-auto flex max-w-6xl flex-col gap-10">
         <SectionHeading
-          eyebrow="OS · Evidencia"
+          eyebrow="Trabajos"
           title="Antes / después"
           description="Tres órdenes del taller: frenos, motor y clima. Arrastra el mango para comparar."
         />

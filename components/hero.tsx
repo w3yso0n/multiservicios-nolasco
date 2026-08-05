@@ -27,7 +27,7 @@ export function Hero() {
         {/* CTAs y copy primero — nunca dependen del canvas */}
         <div className="relative z-10 flex max-w-2xl flex-col gap-6">
           <p className="font-mono text-xs uppercase tracking-[0.24em] text-ambar-taller">
-            Orden de servicio · OS-0001
+            Taller mecánico · Tlaquepaque
           </p>
 
           <HeroTitle />
